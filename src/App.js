@@ -1,25 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
+
+import './SideBar.css'
 import './App.css';
+import './Global.css'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div id='app'>
+      <aside>
+        <label>
+          O que deseja Cadastrar? <tab/>       
+          <select display="bubble">
+            <option value="A">Material</option>
+            <option value="B">Ferramenta</option>
+            <option value="C">Cliente</option>
+            <option value="D">Funcionário</option>
+          </select>
+        </label>
+        
+        <br/>
+        <br/>
+
+        <strong>Cadastrar Material</strong>
+    
+        <form>
+            <div className="input-block">
+              <label htmlFor="desc_material">Descrição do Material:</label>
+              <input name="desc_material" id="desc_material" required />
+            </div>
+
+            <div className="input-block">
+              <label htmlFor="qtd_material">Quantidade:</label>
+              <input name="qtd_material" id="qtd_material" required />
+            </div>
+
+            <button type="submit">salvar</button>
+          </form>
+        </aside>
+      </div>
   );
 }
 
