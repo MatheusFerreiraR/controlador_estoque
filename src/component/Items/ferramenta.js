@@ -8,34 +8,35 @@ function MaterialItem() {
             <li className="dev-item">
                 <header>
                     <div className="user-info">
-                        <strong>Camera</strong>
-                        <span>Cod: 1</span> <br/>
+                        <strong>Martelo</strong>
+                        <span>Disponível</span>
                     </div>
                 </header>
-                <p><strong>Qtd em estoque: </strong>13</p>
-                <p><strong>Descrição: </strong>HD 720p</p>
+                <p><strong>Código: </strong>01</p>
             </li>
 
             <li className="dev-item">
                 <header>
                     <div className="user-info">
-                        <strong>Cabo</strong>
-                        <span>Cod: 4</span>
+                        <strong>Alicate</strong>
+                        <span>Alugado</span>
                     </div>
                 </header>
-                <p><strong>Qtd em estoque: </strong>9</p>
-                <p><strong>Descrição: </strong>Cabo coaxial</p>
+                <p><strong>Código: </strong>02</p>
+                <p><strong>Func nome: </strong>Matheus</p>
+                <p><strong>Data: </strong>12/03/19</p>
             </li>
 
             <li className="dev-item">
                 <header>
                     <div className="user-info">
-                        <strong>Alarme</strong>
-                        <span>Cod: 5</span>
+                        <strong>Alicate</strong>
+                        <span>Alugado</span>
                     </div>
                 </header>
-                <p><strong>Qtd em estoque: </strong>17</p>
-                <p><strong>Descrição: </strong>Alarme Positron</p>
+                <p><strong>Código: </strong>03</p>
+                <p><strong>Func nome: </strong>Ana</p>
+                <p><strong>Data: </strong>12/03/19</p>
             </li>
         </>
     )

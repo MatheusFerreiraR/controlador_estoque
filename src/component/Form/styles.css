@@ -1,11 +1,13 @@
 select.listForm {
     cursor: pointer;
     font-size: 13px;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
     text-align: center;
     border-radius: 10px;
     width: 80px;
     height: 23px;
     background: #fff;
     box-shadow: 0 0 5px 0 ;
-    margin-top: 0px;
+    margin-bottom: 10px;
 }
