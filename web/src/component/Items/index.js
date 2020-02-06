@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import MaterialItem from './materialItem';
+import ProductsItem from './productsItem';
 import Ferramenta from './ferramenta';
 import Cliente from './cliente';
 import Ordem from './ordem';
@@ -34,25 +34,25 @@ function DevItem() {
                            
             }
             {state.value === 'B' &&
-                <ul>
-                    <Cliente />
-                </ul>
+                
+                <Cliente />
+                
             }
             {state.value === 'C' &&
-                <ul>
+                
                     <Funcionario />
-            </ul>
+
             }
 
             {state.value === 'D' &&
-                <ul>
-                    <Ferramenta />
-                </ul>
+                
+                <Ferramenta />
+                
             }
             {state.value === 'E' &&
-                <ul>
-                    <MaterialItem />
-                </ul>
+                
+                <ProductsItem />
+                
             }
         </div>
     )

@@ -24,7 +24,7 @@ routes.get('/employees', EmployeeController.index);
 
 routes.post('/authenticate', AuthenticateController.store);
 
-routes.use(authMiddleware); //O que estiver aqui para baixo nessecita do token
+// routes.use(authMiddleware); //O que estiver aqui para baixo nessecita do token
 
 routes.post('/clients', ClientController.store);
 routes.get('/clients', ClientController.index);
@@ -37,6 +37,9 @@ routes.get('/employees/:employee_id/location', LocationController.index);
 
 routes.post('/employees/:employee_id/servicesorder', ServiceOrderController.store);
 routes.get('/employees/:employee_id/servicesorder', ServiceOrderController.index);
+
+// routes.post('/employees/servicesorder', ServiceOrderController.store);
+routes.get('/servicesorder', ServiceOrderController.indexAll);
 
 routes.post('/products', ProductController.store);
 routes.get('/products', ProductController.index);

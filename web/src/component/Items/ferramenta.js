@@ -1,45 +1,37 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import api from '../../services/api';
 
-import './styles.css'
+import './styles.css';
 
-function MaterialItem() {
+function FerramentaItem() {
+    const [tool, setTool] = useState([]);
+
+
+    useEffect(() => { 
+        async function loadTools(e){
+            const response =  await api.get('/tools');
+            
+            setTool(response.data.tools); 
+        }
+
+        loadTools();
+    }, []);
+
     return (
-        <>
-            <li className="dev-item">
+        <ul>
+        {tool.map(tools => ( /* FALTA TERMINAR, PRECISA DA FOTO */
+            <li key={tools.id} className="dev-item">
                 <header>
                     <div className="user-info">
-                        <strong>Martelo</strong>
-                        <span>Disponível</span>
+                        <strong>{tools.description}</strong> 
+                        <span style={{color: tools.status === "Disponível" ? "green":'red'}} >{tools.status}</span>
                     </div>
                 </header>
-                <p><strong>Código: </strong>01</p>
+                <p><strong>Código: </strong>{tools.id}</p>
             </li>
-
-            <li className="dev-item">
-                <header>
-                    <div className="user-info">
-                        <strong>Alicate</strong>
-                        <span>Alugado</span>
-                    </div>
-                </header>
-                <p><strong>Código: </strong>02</p>
-                <p><strong>Func nome: </strong>Matheus</p>
-                <p><strong>Data: </strong>12/03/19</p>
-            </li>
-
-            <li className="dev-item">
-                <header>
-                    <div className="user-info">
-                        <strong>Alicate</strong>
-                        <span>Alugado</span>
-                    </div>
-                </header>
-                <p><strong>Código: </strong>03</p>
-                <p><strong>Func nome: </strong>Ana</p>
-                <p><strong>Data: </strong>12/03/19</p>
-            </li>
-        </>
+        ))}
+        </ul>
     )
 
 }
-export default MaterialItem;
+export default FerramentaItem;

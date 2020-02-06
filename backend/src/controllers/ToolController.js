@@ -3,11 +3,17 @@ const Employee = require('../models/Employee');
 
 module.exports = {
     async index(req, res){
-        try {
-            
-        } catch (error) {
-            return res.status(400).send({error});   
-        }
+        // try {
+            const tools = await Tool.findAll({
+                attributes:['id', 'description','status'],
+                order: [['description', 'ASC']],
+            });
+
+            return res.status(200).send({tools});
+
+        // } catch (error) {
+        //     return res.status(400).send({error});   
+        // }
     },
 
     async store(req, res){

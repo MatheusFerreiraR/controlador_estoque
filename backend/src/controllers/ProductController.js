@@ -3,7 +3,8 @@ module.exports = {
     async index(req, res){
         try {
             const products = await Product.findAll({
-                attributes: ['id', 'description', 'quantity']
+                attributes: ['id', 'description', 'quantity'],
+                order: [['description', 'ASC']],
             });
 
             return res.status(200).send({products});

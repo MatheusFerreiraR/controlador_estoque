@@ -1,81 +1,98 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import moment from 'moment';
+import api from '../../services/api';
 
 import './styles.css'
 
 function Ordem() {
+    const [orders, setOrders] = useState([]);
+
+
+    useEffect(() => { 
+        async function loadOrders(e){
+            const response =  await api.get('/servicesorder');
+
+            setOrders(response.data.serviceOrders); 
+        }
+
+        loadOrders();
+    }, []);
+
     return (
         <>
-            <li className="dev-item">
-                <header>
-                    <div className="user-info">
-                        <strong>Nº 120</strong>
-                        <span>Data 12/02/20</span>
-                    </div>
-                </header>
-                <p> <strong>Cli nome: </strong>Jecé Xavier</p>
-                <p> <strong>Func nome: </strong>Matheus Ferreira </p>
-                <p> <strong>Endereço: </strong>Rua Maria Grassi Sinigaglia, 128 Recanto da Fortuna, Campinas-SP </p>
-                <li>
-                    
-                    <p><strong>Produtos:</strong></p>
-                    
-                    <ul className='produtos'>
-                        <p>Camera</p>
-                        <p>Qtd: 3</p>
-                    </ul>
-                    <ul  className='produtos'>
-                        <p>Cabo</p>
-                        <p>Qtd: 6</p>
+            {orders.map(order => (
+                <li key={order.id} className="dev-item">
+                    <header>
+                        <div className="user-info">
+                            <strong>Nº {order.id}</strong>
+                            <span>Data {String(moment(order.createdAt).format('DD/MM/YYYY'))}</span>
+                        </div>
+                    </header>
+                    <p> <strong>Cli nome: </strong>{order.Client.name}</p>
+                    <p> <strong>Func nome: </strong>{order.Employee.name}</p>
+                    {/* <p> <strong>Endereço: </strong>Rua Maria Grassi Sinigaglia, 128 Recanto da Fortuna, Campinas-SP </p> */}
 
+                    <p><strong>Produtos:</strong></p>
+
+                    <ul className='produtos'>
+                        
+                        {order.Product.map(product => (
+                            <>
+                                <li key={product.id} className='produto'>
+                                    <p>{product.description}</p>
+                                    <p>Qtd: 3</p>
+                                </li>
+                                <hr className="separadorProduto"/>
+                            </>
+                        ))}
+                        {order.Product.map(product => (
+                            <>
+                                <li key={product.id} className='produto'>
+                                    <p>{product.description}</p>
+                                    <p>Qtd: 3</p>
+                                </li>
+                                <hr className="separadorProduto"/>
+                            </>
+                        ))}
+                        {order.Product.map(product => (
+                            <>
+                                <li key={product.id} className='produto'>
+                                    <p>{product.description}</p>
+                                    <p>Qtd: 3</p>
+                                </li>
+                                <hr className="separadorProduto"/>
+                            </>
+                        ))}
+                        {order.Product.map(product => (
+                            <>
+                                <li key={product.id} className='produto'>
+                                    <p>{product.description}</p>
+                                    <p>Qtd: 3</p>
+                                </li>
+                                <hr className="separadorProduto"/>
+                            </>
+                        ))}
+                        {order.Product.map(product => (
+                            <>
+                                <li key={product.id} className='produto'>
+                                    <p>{product.description}</p>
+                                    <p>Qtd: 3</p>
+                                </li>
+                                <hr className="separadorProduto"/>
+                            </>
+                        ))}
+                        {order.Product.map(product => (
+                            <>
+                                <li key={product.id} className='produto'>
+                                    <p>{product.description}</p>
+                                    <p>Qtd: 3</p>
+                                </li>
+                                <hr className="separadorProduto"/>
+                            </>
+                        ))}
                     </ul>
                 </li>
-            </li>
-
-            <li className="dev-item">
-                <header>
-                    <div className="user-info">
-                        <strong>Nº 123</strong>
-                        <span>Data 22/04/20</span>
-                    </div>
-                </header>
-                <p> <strong>Cli nome: </strong>Matheus Ferreira</p>
-                <p> <strong>Func nome: </strong>Jecé Xavier </p>
-                <p> <strong>Endereço: </strong>Rua Maria Grassi Sinigaglia, 128 Recanto da Fortuna, Campinas-SP </p>
-                <li>
-                    <p><strong>Produtos:</strong></p>
-                    <ul className='produtos'>
-                        <p>Alarme</p>
-                        <p>Qtd: 2</p>
-                    </ul>
-                    <ul  className='produtos'>
-                        <p>Camera</p>
-                        <p>Qtd: 5</p>
-                    </ul>
-                </li>
-            </li>
-
-            <li className="dev-item">
-                <header>
-                    <div className="user-info">
-                        <strong>Nº 127</strong>
-                        <span>Data 14/06/20</span>
-                    </div>
-                </header>
-                <p> <strong>Cli nome: </strong>Ana Paula</p>
-                <p> <strong>Func nome: </strong>Jecé Xavier </p>
-                <p> <strong>Endereço: </strong>Rua Maria Grassi Sinigaglia, 128 Recanto da Fortuna, Campinas-SP </p>
-                <li>
-                    <p><strong>Produtos:</strong></p>
-                    <ul className='produtos'>
-                        <p>Alarme</p>
-                        <p>Qtd: 2</p>
-                    </ul>
-                    <ul  className='produtos'>
-                        <p>Camera</p>
-                        <p>Qtd: 5</p>
-                    </ul>
-                </li>
-            </li>            
+            ))}            
         </>
     )
 

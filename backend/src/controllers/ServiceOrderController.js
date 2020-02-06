@@ -5,7 +5,7 @@ const ServiceOrder = require('../models/ServiceOrder');
 
 module.exports = {
     async index(req, res){
-        // try {
+        try {
             const {employee_id} = req.params;
             const employee = await Employee.findByPk(employee_id, {
                 attributes: ['id', 'name'],
@@ -33,6 +33,59 @@ module.exports = {
             if(!employee) throw 'Employee not found';
             
             return res.status(200).send({employee});
+
+        } catch (error) {
+            return res.status(400).send({error});
+        }
+    },
+
+    async indexAll(req, res){
+        // try {
+            // const {employee_id} = req.params;
+            
+            const serviceOrders = await ServiceOrder.findAll({
+                attributes: ['id', 'createdAt'],
+                include:[
+                    {
+                        association:'Employee',
+                        attributes: ['name'],
+                    },{
+                        association:'Client',
+                        attributes: ['name'],
+                    },{
+                        association:'Product',
+                        attributes: ['description', 'id'],
+                    }
+                ],
+                order: [['id', 'ASC']],
+            });
+            
+            // const employee = await Employee.findByPk(employee_id, {
+            //     attributes: ['id', 'name'],
+            //     include:{
+            //         association: 'Services Order',
+            //         attributes: ['id', 'date'],
+            //         include:[
+            //             {
+            //                 association: 'Client',
+            //                 attributes: ['id', 'name', 'phone', 'email'],
+            //             },
+            //             {
+            //                 association: 'Product',
+            //                 attributes: ['description'],
+            //                 through:{
+            //                     attributes: []
+            //                 }
+            //             },
+            //         ],
+            //     }
+            // });
+            
+            // console.log("Employee: " + employee.id);
+
+            // if(!orderService) throw 'Employee not found';
+            
+            return res.status(200).send({serviceOrders});
 
         // } catch (error) {
         //     return res.status(400).send({error});

@@ -22,11 +22,23 @@ select.list {
 
 /* Ordem -------------------*/
 ul.produtos{
+    display: block;
+}
+
+li.produto{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 70px;
     list-style: none;
     margin-top: -3px;
+}
+
+ul.produtos > hr.separadorProduto{
+    background: linear-gradient(to right, #fff, #BDBDBD, #fff);
+    height: 1px;
+    border: none;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 /*Material ------------------- */
@@ -38,6 +50,7 @@ li.dev-item {
     margin: 15px;
     margin-right: 0px;
     width: 250px;
+    
 }
 
 li.dev-item header {
