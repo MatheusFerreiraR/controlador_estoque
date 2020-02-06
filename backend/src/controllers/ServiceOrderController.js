@@ -40,8 +40,8 @@ module.exports = {
     },
 
     async indexAll(req, res){
-        // try {
-            // const {employee_id} = req.params;
+        try {
+            const {employee_id} = req.params;
             
             const serviceOrders = await ServiceOrder.findAll({
                 attributes: ['id', 'createdAt'],
@@ -60,36 +60,11 @@ module.exports = {
                 order: [['id', 'ASC']],
             });
             
-            // const employee = await Employee.findByPk(employee_id, {
-            //     attributes: ['id', 'name'],
-            //     include:{
-            //         association: 'Services Order',
-            //         attributes: ['id', 'date'],
-            //         include:[
-            //             {
-            //                 association: 'Client',
-            //                 attributes: ['id', 'name', 'phone', 'email'],
-            //             },
-            //             {
-            //                 association: 'Product',
-            //                 attributes: ['description'],
-            //                 through:{
-            //                     attributes: []
-            //                 }
-            //             },
-            //         ],
-            //     }
-            // });
-            
-            // console.log("Employee: " + employee.id);
-
-            // if(!orderService) throw 'Employee not found';
-            
             return res.status(200).send({serviceOrders});
 
-        // } catch (error) {
-        //     return res.status(400).send({error});
-        // }
+        } catch (error) {
+            return res.status(400).send({error});
+        }
     },
 
     async store(req, res) {
