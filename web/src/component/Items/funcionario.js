@@ -6,7 +6,6 @@ import './styles.css'
 function Funcionario() {
     const [employees, setEmployees] = useState([]);
 
-
     useEffect(() => { 
         async function loadEmployees(e){
             const response =  await api.get('/employees');

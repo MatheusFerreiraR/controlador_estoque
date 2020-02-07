@@ -25,7 +25,7 @@ function Ordem() {
                     <header>
                         <div className="user-info">
                             <strong>Nº {order.id}</strong>
-                            <span>Data {String(moment(order.createdAt).format('DD/MM/YYYY'))}</span>
+                            <span>Data {String(moment(order.date).format('DD/MM/YYYY'))}</span>
                         </div>
                     </header>
                     <p> <strong>Cli nome: </strong>{order.Client.name}</p>
@@ -37,7 +37,7 @@ function Ordem() {
                     <ul className='produtos'>
                         {(
                             (order.OrderProduct < 1) || 
-                            (order.OrderProduct == undefined)
+                            (order.OrderProduct === undefined)
                         ) ?
                             <p>Sem produtos... '-'</p>
                         :

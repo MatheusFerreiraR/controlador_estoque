@@ -43,7 +43,7 @@ module.exports = {
         // try {
             
             const serviceOrders = await ServiceOrder.findAll({
-                attributes: ['id', 'createdAt'],
+                attributes: ['id', 'date'],
                 include:[
                     {
                         association:'Employee',
@@ -59,7 +59,7 @@ module.exports = {
                         ]
                     }
                 ],
-                order: [['id', 'ASC']],
+                order: [['date', 'DESC'],['id', 'DESC']],
             });
             
             return res.status(200).send({serviceOrders});

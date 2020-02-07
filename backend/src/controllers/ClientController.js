@@ -18,7 +18,7 @@ module.exports = {
     },
 
     async store(req, res) {
-        try {
+         try {
             const {name, phone, email, address, cpf_cnpj} = req.body;
             
             //document without punctuation
@@ -44,7 +44,7 @@ module.exports = {
             });  
             
         } catch (error) {
-            return res.status(400).send({error});
+             return res.status(400).send({error});
         }
         
     }
