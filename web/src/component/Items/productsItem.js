@@ -27,7 +27,7 @@ function ProductsItem() {
                             <span>Cod: {products.id}</span> <br/>
                         </div>
                     </header>
-                    <p><strong>Qtd em estoque: </strong>{products.quantity}</p>
+                    <p style={{color: products.quantity <= 10 ? "red":'#666'}}><strong>Qtd em estoque: </strong>{products.quantity}</p>
                 </li>
             ))};
             
