@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import api from '../../services/api';
+import {FaRegCheckCircle, FaRegTimesCircle} from 'react-icons/fa';
 
 import './styles.css';
 
@@ -23,8 +24,16 @@ function FerramentaItem() {
             <li key={tools.id} className="dev-item">
                 <header>
                     <div className="user-info">
-                        <strong>{tools.description}</strong> 
-                        <span style={{color: tools.status === "Disponível" ? "green":'red'}} >{tools.status}</span>
+                        <strong>
+                            {
+                                tools.status === "Disponível" ?
+                                    <FaRegCheckCircle size={15} color="#32CD32" style={{ marginRight: 5}}/>
+                                :
+                                    <FaRegTimesCircle size={15} color="red" style={{ marginRight: 5}}/>
+                            }
+                            {tools.description}
+                        </strong> 
+                        <span style={{color: tools.status === "Disponível" ? "#32CD32":'red'}} >{tools.status}</span>
                     </div>
                 </header>
                 <p><strong>Código: </strong>{tools.id}</p>

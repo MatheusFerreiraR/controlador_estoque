@@ -23,7 +23,7 @@ function ProductsItem() {
                 <li key={products.id} className="dev-item">
                     <header>
                         <div className="user-info">
-                            <strong>{products.description}</strong>
+                            <strong>{products.description}</strong> 
                             <span>Cod: {products.id}</span> <br/>
                         </div>
                     </header>
