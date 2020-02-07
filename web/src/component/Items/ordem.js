@@ -35,8 +35,13 @@ function Ordem() {
                     <p><strong>Produtos:</strong></p>
 
                     <ul className='produtos'>
-                        
-                        {order.OrderProduct.map(product => (
+                        {(
+                            (order.OrderProduct < 1) || 
+                            (order.OrderProduct == undefined)
+                        ) ?
+                            <p>Sem produtos... '-'</p>
+                        :
+                            order.OrderProduct.map(product => (
                             <>
                                 <li key={product.product_id} className='produto'>
                                     <p>{product.Product.description}</p>
