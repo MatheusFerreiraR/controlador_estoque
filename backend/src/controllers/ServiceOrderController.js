@@ -40,8 +40,7 @@ module.exports = {
     },
 
     async indexAll(req, res){
-        try {
-            const {employee_id} = req.params;
+        // try {
             
             const serviceOrders = await ServiceOrder.findAll({
                 attributes: ['id', 'createdAt'],
@@ -53,8 +52,11 @@ module.exports = {
                         association:'Client',
                         attributes: ['name'],
                     },{
-                        association:'Product',
-                        attributes: ['description', 'id'],
+                        association:'OrderProduct',
+                        attributes: ['quantity', 'product_id'],
+                        include:[
+                            { association:'Product', attributes: ['description']}
+                        ]
                     }
                 ],
                 order: [['id', 'ASC']],
@@ -62,9 +64,9 @@ module.exports = {
             
             return res.status(200).send({serviceOrders});
 
-        } catch (error) {
-            return res.status(400).send({error});
-        }
+        // } catch (error) {
+        //     return res.status(400).send({error});
+        // }
     },
 
     async store(req, res) {

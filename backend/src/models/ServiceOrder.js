@@ -24,6 +24,10 @@ class ServiceOrder extends Model{
             through: 'servicesOrder_products',
             as: 'Product' 
         })
+        this.hasMany(models.ServiceOrderProducts, {
+            foreignKey: 'service_order_id',
+            as: 'OrderProduct'
+          })
     }
 }
 

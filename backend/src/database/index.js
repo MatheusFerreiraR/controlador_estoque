@@ -7,6 +7,7 @@ const Tool = require('../models/Tool');
 const ServiceOrder = require('../models/ServiceOrder');
 const Product = require('../models/Product');
 const LocationTools = require('../models/LocationTools');
+const ServiceOrderProducts = require('../models/ServiceOrderProducts');
 
 const connection = new Sequelize(dbConfig);
 
@@ -16,6 +17,7 @@ Tool.init(connection);
 ServiceOrder.init(connection);
 Product.init(connection);
 LocationTools.init(connection);
+ServiceOrderProducts.init(connection);
 
 
 Employee.associate(connection.models);
@@ -24,6 +26,7 @@ ServiceOrder.associate(connection.models);
 Product.associate(connection.models);
 Client.associate(connection.models);
 LocationTools.associate(connection.models);
+ServiceOrderProducts.associate(connection.models);
 
 
 module.exports = connection;

@@ -36,56 +36,11 @@ function Ordem() {
 
                     <ul className='produtos'>
                         
-                        {order.Product.map(product => (
+                        {order.OrderProduct.map(product => (
                             <>
-                                <li key={product.id} className='produto'>
-                                    <p>{product.description}</p>
-                                    <p>Qtd: 3</p>
-                                </li>
-                                <hr className="separadorProduto"/>
-                            </>
-                        ))}
-                        {order.Product.map(product => (
-                            <>
-                                <li key={product.id} className='produto'>
-                                    <p>{product.description}</p>
-                                    <p>Qtd: 3</p>
-                                </li>
-                                <hr className="separadorProduto"/>
-                            </>
-                        ))}
-                        {order.Product.map(product => (
-                            <>
-                                <li key={product.id} className='produto'>
-                                    <p>{product.description}</p>
-                                    <p>Qtd: 3</p>
-                                </li>
-                                <hr className="separadorProduto"/>
-                            </>
-                        ))}
-                        {order.Product.map(product => (
-                            <>
-                                <li key={product.id} className='produto'>
-                                    <p>{product.description}</p>
-                                    <p>Qtd: 3</p>
-                                </li>
-                                <hr className="separadorProduto"/>
-                            </>
-                        ))}
-                        {order.Product.map(product => (
-                            <>
-                                <li key={product.id} className='produto'>
-                                    <p>{product.description}</p>
-                                    <p>Qtd: 3</p>
-                                </li>
-                                <hr className="separadorProduto"/>
-                            </>
-                        ))}
-                        {order.Product.map(product => (
-                            <>
-                                <li key={product.id} className='produto'>
-                                    <p>{product.description}</p>
-                                    <p>Qtd: 3</p>
+                                <li key={product.product_id} className='produto'>
+                                    <p>{product.Product.description}</p>
+                                    <p>Qtd: {product.quantity}</p>
                                 </li>
                                 <hr className="separadorProduto"/>
                             </>
