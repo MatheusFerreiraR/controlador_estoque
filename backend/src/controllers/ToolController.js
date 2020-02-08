@@ -3,7 +3,7 @@ const Employee = require('../models/Employee');
 
 module.exports = {
     async index(req, res){
-        // try {
+        try {
             const tools = await Tool.findAll({
                 attributes:['id', 'description','status'],
                 order: [['description', 'ASC']],
@@ -11,9 +11,9 @@ module.exports = {
 
             return res.status(200).send({tools});
 
-        // } catch (error) {
-        //     return res.status(400).send({error});   
-        // }
+        } catch (error) {
+            return res.status(400).send({error});   
+        }
     },
 
     async store(req, res){
@@ -28,7 +28,11 @@ module.exports = {
             
             return res.status(200).send({tool});
         } catch (error) {
-            return res.status(400).send({error});
+            if(typeof error === 'object'){
+                return res.status(400).send({error: error.errors[0].message});
+            }else if(typeof error === 'string'){
+                return res.status(400).send({error});
+            }
         }
     }
 }

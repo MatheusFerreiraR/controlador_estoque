@@ -1,9 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import api from '../../services/api';
 
+import './styleMenssage.css';
+
 function Ordem(){
     // const [date, setDate] = useState('');
     // const [products, setProducts] = useState('');
+    const [classeMessage, setClasseMessage] = useState('');
+    const [message, setMessage] = useState('');
     const [employees, setEmployees] = useState([]);
     const [clients, setClients] = useState([]);
     const [clientResponsible, setClientResponsible] = useState('');  
@@ -11,11 +15,38 @@ function Ordem(){
 
     async function handleAddServiceOrder(e) {
         e.preventDefault();
-        
-        if((clientResponsible.value !== -1) && (employeeResponsible.value !== -1)){
-            await api.post(`/employees/${employeeResponsible.value}/servicesorder`, {
-                client_id: clientResponsible.value
-            });
+
+        try{
+
+            if(  
+                (clientResponsible.value === undefined) ||
+                (employeeResponsible.value === undefined) ||
+                (clientResponsible.value === '-1') ||
+                (employeeResponsible.value === '-1')
+            ) {
+                throw new Error('Selecione um cliente e funcionario');
+            }
+
+                // await api.post(`/employees/${employeeResponsible.value}/servicesorder`, {
+                //     client_id: clientResponsible.value
+                // });
+            
+
+            setClasseMessage('success-msg');
+            setMessage('Ferramentas Cadastrado com Sucesso')
+        }catch(error){
+            setClasseMessage('error-msg');
+
+            if(  
+                (clientResponsible.value === undefined) ||
+                (employeeResponsible.value === undefined) ||
+                (clientResponsible.value === '-1') ||
+                (employeeResponsible.value === '-1')
+            ){
+                setMessage(error.message)    
+            }else{
+                setMessage(error.response.data.error);
+            }
         }
 
         
@@ -59,6 +90,9 @@ function Ordem(){
 
     return (
         <>
+            <div className={classeMessage}>
+                {message}
+            </div>
             <strong>Cadastrar Ordem de Serviço</strong>
             <form onSubmit={handleAddServiceOrder}>
                 <div className="input-block">

@@ -44,7 +44,11 @@ module.exports = {
             });  
             
         } catch (error) {
-             return res.status(400).send({error});
+            if(typeof error === 'object'){
+                return res.status(400).send({error: error.errors[0].message});
+            }else if(typeof error === 'string'){
+                return res.status(400).send({error});
+            }
         }
         
     }

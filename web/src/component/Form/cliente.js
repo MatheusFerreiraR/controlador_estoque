@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 import api from '../../services/api';
 
+import './styleMenssage.css';
+
 function Cliente() {
+    const [classeMessage, setClasseMessage] = useState('');
+    const [message, setMessage] = useState('');
     const [name, setName] = useState('');
     const [cpf_cnpj, setCpf_cnpj] = useState('');
     const [email, setEmail] = useState('');
@@ -11,17 +15,27 @@ function Cliente() {
     async function handleAddClient(e) {
         e.preventDefault();
         
-        await api.post('/clients', {
-            name,
-            cpf_cnpj,
-            phone,
-            email,
-            address
-        });
+        try{
+            await api.post('/clients', {
+                name,
+                cpf_cnpj,
+                phone,
+                email,
+                address
+            });
+            setClasseMessage('success-msg');
+            setMessage('Cliente Cadastrado com Sucesso')
+        }catch(error){
+            setClasseMessage('error-msg');
+            setMessage(error.response.data.error);
+        }
     };
-
+    
     return (
         <>
+            <div className={classeMessage}>
+                {message}
+            </div>
             <strong>Cadastrar Cliente</strong>
             <form onSubmit={handleAddClient}>
                 <div className="input-block">

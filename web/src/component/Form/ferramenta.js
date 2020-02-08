@@ -1,24 +1,34 @@
 import React, {useState} from 'react';
 import api from '../../services/api';
 
+import './styleMenssage.css';
 
 function Ferramenta(){
+    const [classeMessage, setClasseMessage] = useState('');
+    const [message, setMessage] = useState('');
     const [description, setDescription] = useState('');
-    // const [id, setId] = useState('');
-
     
     async function handleAddTool(e) {
         e.preventDefault();
-        
-        await api.post('/tools', {
-            // id,
-            description,
-        });
+        try{
+            await api.post('/tools', {
+                // id,
+                description,
+            });
+            setClasseMessage('success-msg');
+            setMessage('Ferramentas Cadastrado com Sucesso')
+        }catch(error){
+            setClasseMessage('error-msg');
+            setMessage(error.response.data.error);
+        }
     };
 
 
     return (
         <>
+            <div className={classeMessage}>
+                {message}
+            </div>
             <strong>Cadastrar Ferramenta</strong>
             <form onSubmit={handleAddTool}>
                 <div className="input-block">

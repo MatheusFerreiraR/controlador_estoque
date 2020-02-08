@@ -1,21 +1,35 @@
 import React, {useState} from 'react';
 import api from '../../services/api';
 
+import './styleMenssage.css';
+
 function Material(){
+    const [classeMessage, setClasseMessage] = useState('');
+    const [message, setMessage] = useState('');
     const [description, setDescription] = useState('');
     const [quantity, setQuantity] = useState('');
 
     async function handleAddProduct(e) {
         e.preventDefault();
-        
-        await api.post('/products', {
-            description,
-            quantity,
-        });
+
+        try{
+            await api.post('/products', {
+                description,
+                quantity,
+            });
+            setClasseMessage('success-msg');
+            setMessage('Ferramentas Cadastrado com Sucesso')
+        }catch(error){
+            setClasseMessage('error-msg');
+            setMessage(error.response.data.error);
+        }
     };
     
     return (
         <>
+            <div className={classeMessage}>
+                {message}
+            </div>
             <strong>Cadastrar Material</strong>
             <form onSubmit={handleAddProduct}>
                 <div className="input-block">
