@@ -33,7 +33,7 @@ function Item({ id, title, cod, qtdEstoque, descricao, selected, onSelect }) {
       onPress={() => onSelect(id)}
       style={[
         styles.item,
-        { backgroundColor: selected ? '#F5ECCE' : '#F5DA81',
+        { backgroundColor: selected ? '#DBA901' : '#F7D358',
         width: Dimensions.get('window').width/2,        
         },
       ]}
@@ -93,7 +93,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Constants.statusBarHeight,
+    backgroundColor: '#F3E2A9',
   },
   item: {
     flexGrow: 1,
