@@ -35,7 +35,8 @@ routes.get('/tools', ToolController.index);
 
 routes.post('/employees/:employee_id/location', LocationController.store);
 routes.post('/employees/:employee_id/location/:tool_id', DevolutionController.store);
-// routes.get('/employees/:employee_id/location', LocationController.index);
+
+routes.get('/employees/:employee_id/location', LocationController.index);
 
 routes.post('/employees/:employee_id/servicesorder', ServiceOrderController.store);
 routes.get('/employees/:employee_id/servicesorder', ServiceOrderController.index);

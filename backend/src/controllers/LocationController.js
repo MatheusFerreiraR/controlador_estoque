@@ -1,25 +1,32 @@
 const Tool = require('../models/Tool');
 const Employee = require('../models/Employee');
+const LocationTool = require('../models/LocationTools');
 
 module.exports = {
     async index(req, res){
         try {
             const {employee_id} = req.params;
-            
-            const employee = await Employee.findByPk(employee_id, {
-                attributes: ['id', 'name'],
-                include:{
-                    association: 'tools',
-                    attributes: ['description'],
-                    through:{
-                        attributes: ['rental_date', 'return_date']
+
+            const locations = await LocationTool.findAll({
+                where:{
+                   employee_id,
+                   return_date: null 
+                },
+                attributes: ['id', 'rental_date'],
+                include:[
+                    {
+                        association: 'Employee',
+                        attributes: ['name', 'id']
+                    },
+                    {
+                        association: 'Tool',
+                        attributes: ['description', 'id']
+                        
                     }
-                }
+                ]
             });
 
-            if(!employee) throw 'Employee not found :(';
-
-            return res.status(200).send(employee);
+            return res.status(200).send(locations);
 
         } catch (error) {
             return res.status(400).send({error});   
@@ -46,11 +53,16 @@ module.exports = {
 
             if(tool.status != 'Disponível') throw 'Tool unavailable';
 
+            // await employee.addTools(tool);
+            await LocationTool.create({
+                employee_id: employee.id,
+                tool_id: tool.id,
+                rental_date: Date.now()
+            });
+
             await Tool.update({ status: 'Indisponível'},{ where: {description}}); //Atualiza o status da ferramenta no banco
-
+            
             tool.status = 'Indisponível'; //Atualiza o status da ferramenta na variavel
-
-            await employee.addTool(tool);
             
             return res.status(200).send({tool, employee});
         } catch (error) {
