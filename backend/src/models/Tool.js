@@ -22,6 +22,10 @@ class Tool extends Model{
             through: 'employee_tools',
             as: 'employees'
         })
+        this.hasMany(models.LocationTools, {
+            foreignKey: 'tool_id',
+            as: 'Locations'
+        })
     }
 }
 

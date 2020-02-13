@@ -7,9 +7,18 @@ module.exports = {
             const tools = await Tool.findAll({
                 attributes:['id', 'description','status'],
                 order: [['description', 'ASC']],
+                include:{
+                    association: 'Locations',
+                    attributes: ['id', 'rental_date', 'return_date'],
+                    order: [['id', 'DESC']],
+                    include:{
+                        association: 'Employee',
+                        attributes: ['name', 'id']
+                    }
+                }
             });
 
-            return res.status(200).send({tools});
+            return res.status(200).send(tools);
 
         } catch (error) {
             return res.status(400).send({error});   
