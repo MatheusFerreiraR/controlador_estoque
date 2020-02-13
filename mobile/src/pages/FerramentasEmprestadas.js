@@ -1,24 +1,37 @@
 import React, { useState } from 'react';
 import { SafeAreaView, FlatList, StyleSheet, Text, Dimensions, View} from 'react-native';
 import api from '../service/api';
+import moment from 'moment';
 
-function Item({id }) {
+function Item({title, idTool, date }) {
   return (
     <View style={styles.item}>
-      <Text style={styles.title}>{id}</Text>
-      <Text style={styles.title}>Ola</Text>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.cod}>Cod: {idTool}</Text>
+      <Text style={styles.texto}>Pego em: {date}</Text>
     </View>
   );
 }
+
 
 export default function App() {
   const [tools, setTools] = useState([]);
 
   React.useEffect(() => {
     async function loadToolsRented(e) {
-      const response = await api.get('/employees/4/location');
+      const response = await api.get('/employees/9/location');
+      
+      // console.log(response.data);
 
-      setTools(response.data.employee);
+      setTools(response.data);
+
+      // console.log("----");
+
+      // tools.map(tool =>(
+      //   console.log(tool),
+      //   console.log("////")
+      // ))
+
     }
       
     loadToolsRented();
@@ -31,14 +44,19 @@ export default function App() {
         data={tools}
         numColumns={2}
         renderItem={({ item }) => (
+          // console.log(item)
           <Item
             style={styles.itens}
-            id={item.employee.id}
-            
+            id={item.id} //id do aluguel
+
+            title={item.Tool.description} //description
+            idTool={item.Tool.id} //id da ferramenta
+            date={String(moment(item.rental_date).format('DD/MM/YYYY H:m:s'))} //data do aluguel
+
             onSelect={e =>( e.preventDefault())}
           /> 
         )}
-        keyExtractor={item => item.employee.id}
+
       />
 
     </SafeAreaView>

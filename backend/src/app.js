@@ -19,7 +19,7 @@ class AppController {
     }
 
     middlewares(){
-        this.express.use(this.cors({origin: 'http://localhost:3000'}))
+        this.express.use(this.cors()) //{origin: 'http://localhost:3000'}
         this.express.use(express.json());
     }
 
