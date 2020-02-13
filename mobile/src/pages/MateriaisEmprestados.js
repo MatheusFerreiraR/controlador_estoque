@@ -1,76 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, FlatList, StyleSheet, Text, Dimensions, View} from 'react-native';
+import api from '../service/api';
 
 
-const DATA = [
-  {
-    id: '1',
-    title: 'Camera',
-    cod: 1,
-    qtd: 3,
-    decricao: 'Descrição...'
-  },
-  {
-    id: '2',
-    title: 'Segundo Item',
-    cod: 2,
-    qtd: 5,
-    decricao: 'Descrição...'
-  },
-  {
-    id: '3',
-    title: 'Terceiro Item',
-    cod: 3,
-    qtd: 2,
-    decricao: 'Descrição...'
-  },
-  {
-    id: '4',
-    title: 'Quarto Item',
-    cod: 4,
-    qtd: 2,
-    decricao: 'Descrição...'
-  },
-  {
-    id: '5',
-    title: 'Quinto Item',
-    cod: 5,
-    qtd: 2,
-    decricao: 'Descrição...'
-  },
-  
-];
-
-function Item({title, cod, qtdEstoque, descricao }) {
-  return (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.cod}>Cod: {cod}</Text>
-      <Text style={styles.texto}>Quantidade: {qtdEstoque}</Text>
-      <Text style={styles.texto}>{descricao}</Text>
-    </View>
-  );
-}
 
 export default function App() {
 
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function loadProductsRented() {
+      const response = await api.get('/products');
+      setProducts(response.data.products)
+    }
+      
+    loadProductsRented();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-
       <FlatList
-        data={DATA}
+        data={products}
         numColumns={2}
         renderItem={({ item }) => (
-          <Item
-            style={styles.itens}
-            id={item.id}
-            title={item.title}
-            cod={item.cod}
-            qtdEstoque={item.qtd}
-            descricao={item.decricao}
-            onSelect={e =>( e.preventDefault())}
-          /> 
+          <View style={styles.item}>
+            <Text style={styles.cod}>Cod: {item.id}</Text>
+            <Text style={styles.title}>{item.description}</Text>
+            <Text style={styles.texto}>Quantidade: {item.quantity}</Text>
+          </View>
         )}
         
       />

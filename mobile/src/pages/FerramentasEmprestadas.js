@@ -1,91 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, FlatList, StyleSheet, Text, Dimensions, View} from 'react-native';
+import api from '../service/api';
 
-
-const DATA = [
-  {
-    id: '1',
-    title: 'Martelo',
-    cod: 1,
-    qtd: 3,
-    decricao: 'Descrição...'
-  },
-  {
-    id: '2',
-    title: 'Segundo Item',
-    cod: 2,
-    qtd: 5,
-    decricao: 'Descrição...'
-  },
-  {
-    id: '3',
-    title: 'Terceiro Item',
-    cod: 3,
-    qtd: 2,
-    decricao: 'Descrição...'
-  },
-  {
-    id: '4',
-    title: 'Quarto Item',
-    cod: 4,
-    qtd: 2,
-    decricao: 'Descrição...'
-  },
-  {
-    id: '5',
-    title: 'Quinto Item',
-    cod: 5,
-    qtd: 2,
-    decricao: 'Descrição...'
-  },
-  {
-    id: '6',
-    title: 'Sexto Item',
-    cod: 6,
-    qtd: 2,
-    decricao: 'Descrição...'
-  },
-  {
-    id: '7',
-    title: 'Sexto Item',
-    cod: 7,
-    qtd: 2,
-    decricao: 'Descrição...'
-  },
-];
-
-function Item({title, cod, qtdEstoque, descricao }) {
+function Item({id }) {
   return (
     <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.cod}>Cod: {cod}</Text>
-      <Text style={styles.texto}>Quantidade: {qtdEstoque}</Text>
-      <Text style={styles.texto}>{descricao}</Text>
+      <Text style={styles.title}>{id}</Text>
+      <Text style={styles.title}>Ola</Text>
     </View>
   );
 }
 
 export default function App() {
+  const [tools, setTools] = useState([]);
 
+  React.useEffect(() => {
+    async function loadToolsRented(e) {
+      const response = await api.get('/employees/4/location');
+
+      setTools(response.data.employee);
+    }
+      
+    loadToolsRented();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
 
       <FlatList
-        data={DATA}
+        data={tools}
         numColumns={2}
         renderItem={({ item }) => (
           <Item
             style={styles.itens}
-            id={item.id}
-            title={item.title}
-            cod={item.cod}
-            qtdEstoque={item.qtd}
-            descricao={item.decricao}
+            id={item.employee.id}
+            
             onSelect={e =>( e.preventDefault())}
           /> 
         )}
-        
+        keyExtractor={item => item.employee.id}
       />
 
     </SafeAreaView>

@@ -1,8 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { SafeAreaView, TouchableOpacity, FlatList, StyleSheet, Text, Dimensions, View} from 'react-native';
-import api from '../service/api';
 
-function Item({ id, description, quantity, selected, onSelect }) {
+
+const DATA = [
+  {
+    id: '1',
+    title: 'Martelo',
+    cod: 1,
+    qtdEstoque: 3,
+    decricao: 'Fala fiote'
+  },
+  {
+    id: '2',
+    title: 'Segundo Item',
+    cod: 2,
+    qtdEstoque: 5,
+    decricao: 'Eae doidao'
+  },
+  {
+    id: '3',
+    title: 'Terceiro Item',
+    cod: 3,
+    qtdEstoque: 2,
+    decricao: 'Eee mizera'
+  },
+];
+
+function Item({ id, title, cod, qtdEstoque, descricao, selected, onSelect }) {
   return (
     <TouchableOpacity
       onPress={() => onSelect(id)}
@@ -10,54 +34,46 @@ function Item({ id, description, quantity, selected, onSelect }) {
         styles.item,
         { backgroundColor: selected ? '#DBA901' : '#F7D358',
         width: Dimensions.get('window').width/2,        
-      },]}
-      >
-      <Text style={styles.title}>{description}</Text>
-      <Text style={styles.cod}>Cod: {id}</Text>
-      <Text style={styles.texto}>Estoque: {quantity}</Text>
+        },
+      ]}
+    >
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.cod}>Cod: {cod}</Text>
+      <Text style={styles.texto}>Estoque: {qtdEstoque}</Text>
+      <Text style={styles.texto}>{descricao}</Text>
     </TouchableOpacity>
   );
 }
 
 export default function App() {
-  
-  const [selected, setSelected] = useState(new Map());
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    async function loadProductsRented() {
-      const response = await api.get('/products');
-      setProducts(response.data.products)
-    }
-      
-    loadProductsRented();
-  }, []);
+  const [selected, setSelected] = React.useState(new Map());
 
   const onSelect = React.useCallback( id => {
-    const newSelected = new Map(selected);
-    newSelected.set(id, !selected.get(id));
+      const newSelected = new Map(selected);
+      newSelected.set(id, !selected.get(id));
 
-    setSelected(newSelected);
-  },
-  [selected],
-);
+      setSelected(newSelected);
+    },
+    [selected],
+  );
 
   return (
     <SafeAreaView style={styles.container}>
       <>
       <FlatList
-         data={products}
-         numColumns={2}
-         renderItem={({ item }) => (
+        data={DATA}
+        numColumns={2}
+        renderItem={({ item }) => (
           <Item
             style={styles.itens}
             id={item.id}
-            quantity={item.quantity}
-            description={item.description}
+            title={item.title}
+            cod={item.cod}
+            qtdEstoque={item.qtdEstoque}
+            descricao={item.decricao}
             selected={!!selected.get(item.id)}
             onSelect={onSelect}
           /> 
-           
         )}
         keyExtractor={item => item.id}
         extraData={selected}
