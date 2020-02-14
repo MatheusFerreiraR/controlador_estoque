@@ -2,21 +2,33 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import Main from './pages/Main';
-import Materias from './pages/Materias';
+import Login from './pages/Login';
+import Materiais from './pages/Materiais';
+import Ferramentas from './pages/Ferramentas';
 import Ordem from './pages/Ordem';
 import MateriasEmprestados from './pages/MateriaisEmprestados';
 import FerramentasEmprestadas from './pages/FerramentasEmprestadas';
+import CriarFunc from './pages/CriarFunc';
 
 const Routes = createAppContainer(
     createStackNavigator({
         Main: {
+            screen: Login,
+            navigationOptions:{
+                title: 'Login'
+            },
+        },
+        Menu: {
             screen: Main,
             navigationOptions:{
                 title: 'Menu'
             },
         },
-        Materias: {
-            screen: Materias
+        Materiais: {
+            screen: Materiais
+        },
+        Ferramentas: {
+            screen: Ferramentas
         },
         Ordem: {
             screen: Ordem,
@@ -36,6 +48,12 @@ const Routes = createAppContainer(
                 title: 'Ferramentas Emprestados'
             }
         },
+        CriarFunc: {
+            screen: CriarFunc,
+            navigationOptions: {
+                title: 'Criar Usuário'
+            }
+        }
 
     }, {
         defaultNavigationOptions: {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, FlatList, StyleSheet, Text, Dimensions, View} from 'react-native';
+import { SafeAreaView, FlatList, StyleSheet, Text, Dimensions, TouchableOpacity, View} from 'react-native';
 import api from '../service/api';
 import moment from 'moment';
 
@@ -14,13 +14,15 @@ function Item({title, idTool, date }) {
 }
 
 
-export default function App() {
+export default function App({ navigation }) {
   const [tools, setTools] = useState([]);
 
   React.useEffect(() => {
     async function loadToolsRented(e) {
-      const response = await api.get('/employees/9/location');
+      const response = await api.get('/employees/1/location');
       
+      // console.log("Hello");
+
       // console.log(response.data);
 
       setTools(response.data);
@@ -44,7 +46,7 @@ export default function App() {
         data={tools}
         numColumns={2}
         renderItem={({ item }) => (
-          // console.log(item)
+          //console.log(item),
           <Item
             style={styles.itens}
             id={item.id} //id do aluguel
@@ -56,8 +58,12 @@ export default function App() {
             onSelect={e =>( e.preventDefault())}
           /> 
         )}
-
       />
+      <View>
+        <TouchableOpacity onPress={() => navigation.navigate('Ferramentas')} style={styles.botaoFooter}>
+            <Text style={styles.textBotaoFooter}> Alugar nova ferramenta </Text>
+        </TouchableOpacity>
+      </View>
 
     </SafeAreaView>
   );
@@ -90,5 +96,20 @@ const styles = StyleSheet.create({
   texto: {
     fontWeight: 'bold',
   },  
+  botaoFooter: {
+    position: 'absolute',
+    bottom: 0,
+    padding: 10, 
+    height: 45,   
+    backgroundColor: '#d1af3e',
+    width: Dimensions.get('window').width,
+  },
+
+  textBotaoFooter: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold',
+  }
  
 });

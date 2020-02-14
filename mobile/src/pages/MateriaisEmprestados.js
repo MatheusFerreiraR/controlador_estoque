@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, FlatList, StyleSheet, Text, Dimensions, View} from 'react-native';
+import { SafeAreaView, FlatList, StyleSheet, Text, Dimensions, View, TouchableOpacity} from 'react-native';
 import api from '../service/api';
 
 
 
-export default function App() {
+export default function App({navigation}) {
 
   const [products, setProducts] = useState([]);
 
@@ -31,6 +31,11 @@ export default function App() {
         )}
         
       />
+      <View>
+        <TouchableOpacity onPress={() => navigation.navigate('Materiais')} style={styles.botaoFooter}>
+            <Text style={styles.textBotaoFooter}> Alugar novos Materiais </Text>
+        </TouchableOpacity>
+      </View>
 
     </SafeAreaView>
   );
@@ -63,5 +68,20 @@ const styles = StyleSheet.create({
   texto: {
     fontWeight: 'bold',
   },  
+  botaoFooter: {
+    position: 'absolute',
+    bottom: 0,
+    padding: 10, 
+    height: 45,   
+    backgroundColor: '#d1af3e',
+    width: Dimensions.get('window').width,
+  },
+
+  textBotaoFooter: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold',
+  }
  
 });

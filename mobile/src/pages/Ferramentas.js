@@ -1,30 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { SafeAreaView, TouchableOpacity, FlatList, StyleSheet, Text, Dimensions, View} from 'react-native';
-
-
-const DATA = [
-  {
-    id: '1',
-    title: 'Martelo',
-    cod: 1,
-    qtdEstoque: 3,
-    decricao: 'Fala fiote'
-  },
-  {
-    id: '2',
-    title: 'Segundo Item',
-    cod: 2,
-    qtdEstoque: 5,
-    decricao: 'Eae doidao'
-  },
-  {
-    id: '3',
-    title: 'Terceiro Item',
-    cod: 3,
-    qtdEstoque: 2,
-    decricao: 'Eee mizera'
-  },
-];
+import api from '../service/api';
 
 function Item({ id, title, cod, qtdEstoque, descricao, selected, onSelect }) {
   return (
@@ -46,7 +22,17 @@ function Item({ id, title, cod, qtdEstoque, descricao, selected, onSelect }) {
 }
 
 export default function App() {
-  const [selected, setSelected] = React.useState(new Map());
+  const [selected, setSelected] = useState(new Map());
+  const [tools, setTools] = useState([]);
+
+  useEffect(() => {
+    async function loadToolsRented() {
+      const response = await api.get('/tools');
+      setTools(response.data.products)
+    }
+      
+    loadToolsRented();
+  }, []);
 
   const onSelect = React.useCallback( id => {
       const newSelected = new Map(selected);
@@ -61,7 +47,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <>
       <FlatList
-        data={DATA}
+        data={tools}
         numColumns={2}
         renderItem={({ item }) => (
           <Item

@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js init
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add apisauce
 
 PATH: 
-  C:\00_MaisUsados\Programas\cmder\bin;C:\00_MaisUsados\Programas\cmder\vendor\bin;C:\00_MaisUsados\Programas\cmder\vendor\conemu-maximus5\ConEmu\Scripts;C:\00_MaisUsados\Programas\cmder\vendor\conemu-maximus5;C:\00_MaisUsados\Programas\cmder\vendor\conemu-maximus5\ConEmu;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Programas\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;D:\Programas\XAMPP\php;C:\ProgramData\ComposerSetup\bin;C:\Users\jecex\AppData\Local\Microsoft\WindowsApps;C:\00_MaisUsados\Programas\Microsoft VS Code\bin;C:\00_MaisUsados\Programas\JetBrains\PyCharm 2019.3.1\bin;C:\Users\jecex\AppData\Local\GitHubDesktop\bin;C:\Users\jecex\AppData\Roaming\npm;C:\Users\jecex\AppData\Local\Yarn\bin;C:\Users\jecex\AppData\Roaming\Composer\vendor\bin;C:\00_MaisUsados\Programas\JetBrains\PhpStorm 2019.3.2\bin;D:\Programas\Git\mingw64\bin;D:\Programas\Git\usr\bin;C:\00_MaisUsados\Programas\cmder;C:\00_MaisUsados\Programas\cmder\vendor\git-for-windows\cmd;C:\00_MaisUsados\Programas\cmder\vendor\git-for-windows\mingw64\bin;C:\00_MaisUsados\Programas\cmder\vendor\git-for-windows\usr\bin
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Users\mathe\AppData\Local\Programs\Python\Python38-32\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Users\mathe\AppData\Local\Microsoft\WindowsApps;C:\Users\mathe\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\mathe\AppData\Roaming\npm;C:\Users\mathe\AppData\Local\Yarn\bin
 
 Yarn version: 
   1.21.1
@@ -14,17 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: canceled
-      at Interface.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:136925:13)
-      at Interface.emit (events.js:223:5)
-      at Interface._ttyWrite (readline.js:885:16)
-      at ReadStream.onkeypress (readline.js:191:10)
-      at ReadStream.emit (events.js:223:5)
-      at emitKeys (internal/readline/utils.js:433:14)
-      at emitKeys.next (<anonymous>)
-      at ReadStream.onData (readline.js:1151:36)
-      at ReadStream.emit (events.js:223:5)
-      at addChunk (_stream_readable.js:309:12)
+  Error: EPERM: operation not permitted, unlink 'C:\Users\mathe\Desktop\www\controlador_estoque_rokoney\mobile\node_modules\@babel\compat-data\node_modules\.bin'
 
 npm manifest: 
   {
