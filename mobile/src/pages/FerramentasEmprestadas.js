@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { SafeAreaView, FlatList, StyleSheet, Text, Dimensions, TouchableOpacity, View} from 'react-native';
+import { SafeAreaView, FlatList, StyleSheet, Text, Dimensions, TouchableOpacity, View, Alert, AsyncStorage } from 'react-native';
+
 import api from '../service/api';
+import {getToken, TOKEN_KEY} from '../service/auth';
 import moment from 'moment';
 
-function Item({title, idTool, date }) {
+function Item({ title, idTool, date }) {
   return (
     <View style={styles.item}>
       <Text style={styles.title}>{title}</Text>
@@ -19,23 +21,24 @@ export default function App({ navigation }) {
 
   React.useEffect(() => {
     async function loadToolsRented(e) {
-      const response = await api.get('/employees/1/location');
-      
-      // console.log("Hello");
+      try {
 
-      // console.log(response.data);
+        const employee = JSON.parse(await AsyncStorage.getItem(TOKEN_KEY + 'employee'));
 
-      setTools(response.data);
+        const response = await api.get(`/employees/${employee.id}/location`, {
+          headers:{
+            'authorization': await getToken()
+          }
+        });
+        setTools(response.data);
 
-      // console.log("----");
-
-      // tools.map(tool =>(
-      //   console.log(tool),
-      //   console.log("////")
-      // ))
+      } catch (error) {
+        Alert.alert("Erro! :(", error.response.data.error);
+        console.log(error.response.data.error);
+      }
 
     }
-      
+
     loadToolsRented();
   }, []);
 
@@ -55,13 +58,13 @@ export default function App({ navigation }) {
             idTool={item.Tool.id} //id da ferramenta
             date={String(moment(item.rental_date).format('DD/MM/YYYY H:m:s'))} //data do aluguel
 
-            onSelect={e =>( e.preventDefault())}
-          /> 
+            onSelect={e => (e.preventDefault())}
+          />
         )}
       />
       <View>
         <TouchableOpacity onPress={() => navigation.navigate('Ferramentas')} style={styles.botaoFooter}>
-            <Text style={styles.textBotaoFooter}> Alugar nova ferramenta </Text>
+          <Text style={styles.textBotaoFooter}> Alugar nova ferramenta </Text>
         </TouchableOpacity>
       </View>
 
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
     padding: 8,
     margin: 5,
     marginBottom: 0,
-    width: Dimensions.get('window').width/2,        
+    width: Dimensions.get('window').width / 2,
   },
   title: {
     fontSize: 20,
@@ -95,12 +98,12 @@ const styles = StyleSheet.create({
   },
   texto: {
     fontWeight: 'bold',
-  },  
+  },
   botaoFooter: {
     position: 'absolute',
     bottom: 0,
-    padding: 10, 
-    height: 45,   
+    padding: 10,
+    height: 45,
     backgroundColor: '#d1af3e',
     width: Dimensions.get('window').width,
   },
@@ -111,5 +114,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
   }
- 
+
 });

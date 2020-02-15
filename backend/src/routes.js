@@ -25,7 +25,7 @@ routes.get('/employees', EmployeeController.index);
 
 routes.post('/authenticate', AuthenticateController.store);
 
-// routes.use(authMiddleware); //O que estiver aqui para baixo nessecita do token
+routes.use(authMiddleware); //O que estiver aqui para baixo nessecita do token
 
 routes.post('/clients', ClientController.store);
 routes.get('/clients', ClientController.index);

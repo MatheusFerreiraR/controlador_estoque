@@ -1,29 +1,42 @@
-import React from 'react';
-import {Dimensions, ScrollView, StyleSheet, View, Text,TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { Dimensions, ScrollView, StyleSheet, View, Text, TouchableOpacity, AsyncStorage} from 'react-native';
 
 export default function App({ navigation }) {
+  const [employee, setEmployee] = useState({});
 
-  return (
+  useEffect(() => {
+    async function getEmployee() {
+      // const token = await AsyncStorage.getItem('@RokoneyApi:token');
+       setEmployee(JSON.parse(await AsyncStorage.getItem('@RokoneyApi:employee')));
+
+    }
+    
+    getEmployee();
+
+  }, []);
+  
+
+    return (
     <>
       <ScrollView style={styles.container}>
-        
+
         <Text style={styles.title}>ROKONEY</Text>
-        <Text style={styles.subtitle}>Nome Funcionario</Text>
+        <Text style={styles.subtitle}>{employee.name}</Text>
 
 
         <View style={styles.adicionaInput}>
-          <TouchableOpacity title="ordem"  onPress={() => {
+          <TouchableOpacity title="ordem" onPress={() => {
             navigation.navigate('Ordem');
           }} style={styles.botaoAdd}>
-              <Text style={styles.texto}> Criar Ordem de serviço </Text>
+            <Text style={styles.texto}> Criar Ordem de serviço </Text>
           </TouchableOpacity>
         </View>
-        
+
         <View style={styles.adicionaInput}>
           <TouchableOpacity onPress={() => {
             navigation.navigate('FerramentasEmprestadas');
           }} style={styles.botaoAdd}>
-              <Text style={styles.texto}> Ferramentas emprestadas </Text>
+            <Text style={styles.texto}> Ferramentas emprestadas </Text>
           </TouchableOpacity>
         </View>
 
@@ -31,14 +44,14 @@ export default function App({ navigation }) {
           <TouchableOpacity onPress={() => {
             navigation.navigate('MateriasEmprestados');
           }} style={styles.botaoAdd}>
-              <Text style={styles.texto}> Materiais emprestados </Text>
+            <Text style={styles.texto}> Materiais emprestados </Text>
           </TouchableOpacity>
         </View>
 
       </ScrollView>
 
-  
-  </>
+
+    </>
   );
 }
 
@@ -51,7 +64,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     marginBottom: 10,
-    marginTop: 10,   
+    marginTop: 10,
     fontSize: 40,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -76,7 +89,7 @@ const styles = StyleSheet.create({
     borderColor: '#111',
     borderRadius: 3,
     elevation: 3,
-  },  
+  },
 
   texto: {
     textAlign: "center",

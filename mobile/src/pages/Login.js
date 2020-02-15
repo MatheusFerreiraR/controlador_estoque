@@ -1,86 +1,96 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, TextInput, Text,TouchableOpacity, AsyncStorege, AsyncStorage} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  AsyncStorage,
+  Alert
+} from 'react-native';
+
 import api from '../service/api';
 
 export default function App({ navigation }) {
 
-    const [email, setEmail] = useState('');
-    const [password , setPassword] = useState('');
-    const [mensageErr, setMensageErr] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [mensageErr, setMensageErr] = useState(null);
 
-    // useEffect(() => {
-    //   async function verificationLogin(){
-    //     const token = await AsyncStorege.getItem('@RokoneyApi:token');
-    //     const employee = await AsyncStorege.getItem('@RokoneyApi:employee');
+  useEffect(() => {
+    async function verificationLogin() {
+      const token = await AsyncStorage.getItem('@RokoneyApi:token');
+      const employee = JSON.stringify(await AsyncStorage.getItem('@RokoneyApi:employee'));
 
-    //     if (token && employee) console.log(employee);
-    //   }
-
-    //   verificationLogin();
-    // }, []);
-
-    // async function componentDidMount(){
-    //   const token = await AsyncStorege.getItem('@RokoneyApi:token');
-    //   const employee = await AsyncStorege.getItem('@RokoneyApi:employee');
-
-    //   if (token && employee) navigation.navigate('Menu');
-    // }
-
-    async function login() {     
-        try{
-            const response = await api.post('/authenticate', {
-                email: "matheus@teste.com",  
-                password: "123456"
-            });
-            
-            // console.log(response.data);
-            
-            const {employee, token} = response.data;
-
-            // console.log(employee);
-            console.log(token);
-
-            await AsyncStorage.multSet([
-                ['@RokoneyApi:token', token],
-                ['@RokoneyApi:employee', JSON.stringify(employee)]
-            ]);
-            
-        }catch(response){
-          //  setMensageErr(response.data.error);
-           console.log(response.data.error);
-        }  
-        
+      if (token && employee) {
+        navigation.navigate('Menu');
+      }
     }
 
-    function criarConta() {
-       <Text  style={[styles.texto,{ color: '#fff', },]} />
+    verificationLogin();
+
+  }, []);
+
+  async function login() {
+    try {
+      const response = await api.post('/authenticate', {
+        email,
+        password
+      });
+
+      // console.log("oie");
+
+      // console.log(response.data);
+
+      const { employee, token } = response.data;
+
+      // console.log(employee);
+      // console.log(token);
+
+      await AsyncStorage.multiSet([
+        ['@RokoneyApi:token', token],
+        ['@RokoneyApi:employee', JSON.stringify(employee)]
+      ]);
+
+      navigation.navigate('Menu');
+
+    } catch (error) {
+      //  setMensageErr(response.data.error);
+      Alert.alert("Erro! :(", error.response.data.error);
+      console.log(error.response.data.error);
     }
+
+  }
+
+  function criarConta() {
+    <Text style={[styles.texto, { color: '#fff', },]} />
+  }
 
   return (
     <>
       <View style={styles.container}>
-        
+
         <Text style={styles.title}>ROKONEY</Text>
 
-       <TextInput 
-            style={styles.input}
-            placeholder='Digite seu Email'
-            keyboardType='email-address'
-             value={email} onChangeText={setEmail}
-            required
+        <TextInput
+          style={styles.input}
+          placeholder='Digite seu Email'
+          keyboardType='email-address'
+          value={email} onChangeText={setEmail}
+          required
         />
-        
-       <TextInput 
-            style={styles.input}
-            secureTextEntry={true}
-            placeholder='Digite sua Senha'
-            value={password} onChangeText={setPassword}
-            required
+
+        <TextInput
+          style={styles.input}
+          secureTextEntry={true}
+          placeholder='Digite sua Senha'
+          value={password} onChangeText={setPassword}
+          required
         />
 
         <View style={styles.adicionaInput}>
           <TouchableOpacity onPress={login} style={styles.botaoAdd}>
-              <Text style={styles.textoBotao}> Login </Text>
+            <Text style={styles.textoBotao}> Login </Text>
           </TouchableOpacity>
         </View>
 
@@ -88,8 +98,8 @@ export default function App({ navigation }) {
 
       </View>
 
-  
-  </>
+
+    </>
   );
 };
 
@@ -103,7 +113,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     marginBottom: 40,
-    marginTop: 70,   
+    marginTop: 70,
     fontSize: 40,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -112,9 +122,9 @@ const styles = StyleSheet.create({
   texto: {
     color: '#111',
     marginTop: 10,
-    textAlign: 'right',  
-  },    
-  
+    textAlign: 'right',
+  },
+
   input: {
     fontSize: 20,
     color: 'black',
@@ -138,7 +148,7 @@ const styles = StyleSheet.create({
     borderColor: '#111',
     borderRadius: 3,
     elevation: 3,
-  },  
+  },
 
   textoBotao: {
     textAlign: "center",
